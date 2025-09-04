@@ -249,7 +249,7 @@ function App() {
           {/* Total */}
           <div className="mt-4 flex justify-between items-center">
             <span className="font-bold">Total:</span>
-            <span className="font-bold">{total && total.toFixed(2) || 0} €</span>
+            <span className="font-bold">{total.toFixed(2)} €</span>
           </div>
 
 
