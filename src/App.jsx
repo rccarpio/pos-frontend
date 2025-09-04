@@ -42,8 +42,8 @@ function App() {
         return response.json(); // parse JSON directly
       })
       .then((data) => {
-        console.log("Products:", data);
-        setProducts(data);
+        const newData = data.map(item => ({ ...item, price: parseFloat(item.price) }));
+        setProducts(newData);
       })
       .catch((error) => console.error("Fetch error:", error));
   };
@@ -122,7 +122,14 @@ function App() {
         }
       }
 
-      return product;
+      // return {
+      //   ...product,
+      //   subtotal: product.price,
+      // };
+
+      const x = { ...product, subtotal: product.subtotal ?? product.price ?? 0 };
+      console.log(">>:",x);
+      return x;
     } catch (e) {
       console.log(e.message);
     }
@@ -148,8 +155,8 @@ function App() {
           ? originalPrice * (parseFloat(parts[2]) / 100)
           : parseFloat(parts[2]);
 
-        console.log("Parts:", parts);
-        console.log("Parts:", price);
+        // console.log("Parts:", parts);
+        // console.log("Parts:", price);
 
         return { type: 'tier', min, max, price };
       }
@@ -242,7 +249,7 @@ function App() {
           {/* Total */}
           <div className="mt-4 flex justify-between items-center">
             <span className="font-bold">Total:</span>
-            <span className="font-bold">{total.toFixed(2)} €</span>
+            <span className="font-bold">{total && total.toFixed(2) || 0} €</span>
           </div>
 
 
