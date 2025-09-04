@@ -27,13 +27,6 @@ function App() {
   const [cart, setCart] = useState([]);
   const [lastProduct, setLastProduct] = useState(null);
 
-  useEffect(() => {
-    if (lastProduct) {
-      addBundle(lastProduct);
-      setLastProduct(null);
-    }
-  }, [lastProduct]);
-
   const addToCart = (product) => {
 
     setCart((prev) => {
@@ -112,22 +105,6 @@ function App() {
       console.log(e.message);
     }
   }
-
-  const addBundle = (product) => {
-    setBundle((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, qty: (item.qty || 0) + 1 }
-            : item
-        );
-      }
-
-      return [...prev, { ...product, qty: 1, price: 0 }];
-    });
-  };
 
   const parseDiscountText = (promoCode, discountCode = '', originalPrice = 0) => {
     if (!promoCode || !discountCode) {
