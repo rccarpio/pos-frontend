@@ -12,8 +12,22 @@ Currently, two official plugins are available:
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 
+# POS Frontend
 
-🚀 Installation
+Frontend service for the POS (Point of Sale) application, built with React + Vite
+
+---
+
+## 📦 Tech Stack
+
+- **Node**: v20.19.5
+- **NPM**: v10.8.2 
+
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally:
+
 
 1. Clone the repository
 
