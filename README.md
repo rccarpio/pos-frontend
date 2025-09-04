@@ -22,6 +22,7 @@ Frontend service for the POS (Point of Sale) application, built with React + Vit
 
 - **Node**: v20.19.5
 - **NPM**: v10.8.2 
+- **React**: v18
 
 
 ## 🚀 Getting Started
