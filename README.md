@@ -28,7 +28,7 @@ Frontend service for the POS (Point of Sale) application, built with React + Vit
 
 Follow these steps to set up the project locally:
 
-
+```bash
 1. Clone the repository
 
 git clone https://github.com/rccarpio/pos-frontend.git
