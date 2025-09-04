@@ -211,14 +211,6 @@ function App() {
                     </ul>)
                   }
 
-                  {/* <ul className="mt-2 ml-4 text-sm text-gray-600 list-disc space-y-1 list-none">
-
-                  {
-                    bundle.map((item) =>
-                        <li key={item.id}>Free {item.name} x {item.qty} €{item.price}</li>
-                    )
-                  }
-                   </ul> */}
                 </li>
               ))}
             </ul>
