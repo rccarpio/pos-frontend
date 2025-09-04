@@ -26,7 +26,6 @@ function App() {
 
   const [cart, setCart] = useState([]);
   const [lastProduct, setLastProduct] = useState(null);
-  const [bundle, setBundle] = useState([]);
 
   useEffect(() => {
     if (lastProduct) {
@@ -42,10 +41,13 @@ function App() {
       const exists = prev.find((item) => item.id === product.id);
 
       if (exists) {
-        const item = prev.map((item) =>
-          item.id === product.id ? promoComputation({ ...item, qty: item.qty + 1, subtotal: item.price * (item.qty + 1) }) : promoComputation({
+        const item = prev.map((item) => 
+        {
+          const totalQty = item.qty + 1;
+          return item.id === product.id ? promoComputation({ ...item, qty: totalQty, subtotal: item.price * (totalQty) }) : promoComputation({
             ...item,
           })
+        }
         );
 
         console.log(item);
