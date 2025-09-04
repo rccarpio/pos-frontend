@@ -5,13 +5,15 @@ import viteLogo from '/vite.svg'
 
 function App() {
 
-  const products = [
-    { id: 1, code: 'GR1', name: "Green Tea", price: 3.11 },
-    { id: 2, code: "SR1", name: "Strawberries", price: 5.00 },
-    { id: 3, code: "CF1", name: "Coffee", price: 11.23 },
-  ];
+  const baseUrl = `http://localhost:3000`;
 
-  // Hard code for the meantime.
+  // const products = [
+  //   { id: 1, code: 'GR1', name: "Green Tea", price: 3.11 },
+  //   { id: 2, code: "SR1", name: "Strawberries", price: 5.00 },
+  //   { id: 3, code: "CF1", name: "Coffee", price: 11.23 },
+  // ];
+
+  // Hard code for the mean time.
   const promos = [
     {
       id: 1, product_code: 'GR1', discount_code: 'B2:3.11', discount_name: 'Buy one green tea and get one free',
@@ -25,7 +27,27 @@ function App() {
   ];
 
   const [cart, setCart] = useState([]);
-  const [lastProduct, setLastProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  },[]);
+
+  const fetchProducts = () => {
+    fetch(`${baseUrl}/products`, { method: "GET" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // parse JSON directly
+      })
+      .then((data) => {
+        console.log("Products:", data);
+        setProducts(data);
+      })
+      .catch((error) => console.error("Fetch error:", error));
+  };
+  
 
   const addToCart = (product) => {
 
