@@ -10,3 +10,29 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+🚀 Installation
+
+1. Clone the repository
+
+git clone https://github.com/rccarpio/pos-frontend.git
+cd pos-frontend
+
+
+2. Install dependencies
+
+npm install
+
+Note: Make sure you are using Node.js v20.
+
+
+3. Run the development server
+
+npm run dev
+
+
+4. Open the app in your browser:
+
+http://localhost:5173
