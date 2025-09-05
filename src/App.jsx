@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     fetchProducts();
-  },[]);
+  }, []);
 
   const fetchProducts = () => {
     fetch(`${baseUrl}/products`, { method: "GET" })
@@ -51,7 +51,7 @@ function App() {
       })
       .catch((error) => console.error("Fetch error:", error));
   };
-  
+
 
   const addToCart = (product) => {
 
@@ -60,16 +60,13 @@ function App() {
       const exists = prev.find((item) => item.id === product.id);
 
       if (exists) {
-        const item = prev.map((item) => 
-        {
+        const item = prev.map((item) => {
           const totalQty = item.qty + 1;
           return item.id === product.id ? promoComputation({ ...item, qty: totalQty, subtotal: item.price * (totalQty) }) : promoComputation({
             ...item,
           })
         }
         );
-
-        console.log(item);
 
         return item;
 
@@ -89,33 +86,34 @@ function App() {
 
   const promoComputation = (product) => {
     try {
-
+      // console.log("Main:", product);
       const promo = promos.find(item => item.product_code === product.code);
 
       if (promo) {
-        const promoParse = parseDiscountText(promo.product_code, promo.discount_code, product.price);
 
+        const promoParse = parseDiscountText(promo.product_code, promo.discount_code, product.price);
+        // console.log(promoParse);
         if (promoParse.type == 'tier') {
           if (product.qty >= promoParse.min && product.qty <= promoParse.max) {
+
             const subtotal = promoParse.price * product.qty;
+
+            const promoPrice = promo.product_code === 'SR1' ? promoParse.price : product.price;
+
             return {
               ...product,
-              price: promoParse.price,
+              price: promoPrice,
               subtotal: subtotal,
               discount_name: promo.discount_name,
             };
           }
         } else if (promoParse.type == 'bundle') {
 
-
           const excess = product.qty % promoParse.qty;
           const promoQty = Math.trunc(product.qty / promoParse.qty);
-          const promoPrice = promoParse.price;
           const promoSubtotal = promoQty * promoParse.price;
           const excessSubtotal = excess * product.price;
           const subtotal = promoSubtotal + excessSubtotal;
-
-
           const discountText = `${promo.discount_name} x ${promoQty}`
 
           return {
@@ -126,14 +124,11 @@ function App() {
         }
       }
 
-      // return {
-      //   ...product,
-      //   subtotal: product.price,
-      // };
+      return {
+        ...product,
+        subtotal: product.price,
+      };
 
-      const x = { ...product, subtotal: product.subtotal ?? product.price ?? 0 };
-      console.log(">>:",x);
-      return x;
     } catch (e) {
       console.log(e.message);
     }
@@ -148,6 +143,7 @@ function App() {
       case 'SR1':
       case 'CF1': {
         // Tier promo, format: "PT:3-9999:4.5"
+
         const parts = discountCode.split(":");
         if (parts.length !== 3) {
           throw new Error(`Invalid tier promo format: ${discountCode}`);
@@ -155,12 +151,15 @@ function App() {
 
         const [min, max] = parts[1].split("-").map(Number);
 
+        // console.log("price:",originalPrice)
+        // console.log("part2:",parseFloat(parts[2]));
+
         const price = parts[2].includes('%')
           ? originalPrice * (parseFloat(parts[2]) / 100)
           : parseFloat(parts[2]);
 
         // console.log("Parts:", parts);
-        // console.log("Parts:", price);
+        // console.log("Promo Price:", price);
 
         return { type: 'tier', min, max, price };
       }
