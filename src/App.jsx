@@ -5,7 +5,11 @@ import viteLogo from '/vite.svg'
 
 function App() {
 
-  const baseUrl = `http://localhost:3000`;
+  // Dev
+  // const baseUrl = `http://localhost:3000`;
+
+  // PROD
+  const baseUrl = import.meta.env.VITE_POS_API_URL;
 
   // const products = [
   //   { id: 1, code: 'GR1', name: "Green Tea", price: 3.11 },
