@@ -51,3 +51,6 @@ npm run dev
 4. Open the app in your browser:
 
 http://localhost:5173
+
+
+Note: Production Mode: For base url you may edit the .env file 
